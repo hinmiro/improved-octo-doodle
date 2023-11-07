@@ -6,8 +6,8 @@ connection = mysql.connector.connect(
     host='127.0.0.1',
     port='3306',
     database='notebook',
-    user='notes',
-    password='notes',
+    user='private',
+    password='private',
     autocommit=True
 )
 try:
@@ -22,30 +22,30 @@ flag = True
 
 def menu():
     print("------Notebook------\n")
-    print("Choose one\n(1) Add new note\n(2) Read all notes\n(3) Delete specific note\n(4) End program")
+    print("Choose one\n(1) Add new note\n(2) Read all private\n(3) Delete specific note\n(4) End program")
 
 
 def note_adder(add_note):
-    sql = f"INSERT INTO notes (note) VALUES ('{add_note}')"
+    sql = f"INSERT INTO private (note) VALUES ('{add_note}')"
     cursor.execute(sql)
 
 
 def note_reader():
     note = []
-    sql = "SELECT * FROM notes;"
+    sql = "SELECT * FROM private;"
     cursor.execute(sql)
     result = cursor.fetchall()
     if cursor.rowcount > 0:
         for i in result:
             note.append(i)
     else:
-        print("You have no notes in notebook.")
+        print("You have no private in notebook.")
     return note
 
 
 def note_deleter(delete_num, note_list):
     delete_id = note_list[delete_num][0]
-    sql = f"DELETE FROM notes WHERE id = {delete_id}"
+    sql = f"DELETE FROM private WHERE id = {delete_id}"
     cursor.execute(sql)
 
 
