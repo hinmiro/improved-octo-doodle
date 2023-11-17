@@ -1,23 +1,24 @@
-import urllib.request
-from bs4 import BeautifulSoup
+import httpx
+from selectolax.parser import HTMLParser
 
+url = "https://duunitori.fi/tyopaikat?alue=Uusimaa&haku=software%3Bjunior"
+headers = {"Use-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"}
 
-class Scrappy:
-    def __init__(self, url):
-        self.url = url
+response = httpx.get(url, headers=headers)
+if response.status_code == 200:
+    html = HTMLParser(response.text)
+    print(html.css_first("title").text())
+    jobs = html.css(".job-box__content")
+    for job in jobs:
+        jobs = {
+            "Job": job.css_first("h3").text(),
+            "Location": job.css_first(".job-box__job-location").text(),
+            "Listed": job.css_first(".job-box__job-posted").text(),
 
-    def scrape(self):
-        data = urllib.request.urlopen(self.url)
-        html = data.read()
-        parser = "html.parser"
-        soup = BeautifulSoup(html, parser)
-        for tag in soup.find_all("a"):
-            url = tag.get("href")
-            if url is None:
-                continue
-            if "articles" in url:
-                print(f"\n{url}")
+        }
+        print(jobs["Job"], jobs["Location"], jobs["Listed"])
+        print("")
 
-
-link = input("Paste your link here: ")
-Scrappy(link).scrape()
+else:
+    print("Faulty status code")
