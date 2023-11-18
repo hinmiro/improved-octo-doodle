@@ -43,10 +43,10 @@ def processor(choice):
         data = decrypter()
         print(data)
     elif choice == 3:
-        path = input("type complete path to text file you want encode: ")
+        path = input("type complete path to text file you want encode to base64: ")
         file_encoder(path)
     elif choice == 4:
-        path = input("type complete path to text file you want encode: ")
+        path = input("type complete path to text file you want decode from base64: ")
         file_decoder(path)
     elif choice == 0:
         print("Shutting down, good bye")
