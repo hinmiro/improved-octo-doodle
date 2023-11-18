@@ -43,11 +43,10 @@ def processor(choice):
         data = decrypter()
         print(data)
     elif choice == 3:
-        # PATH = input("type complete path to text file you want encode: ")
-        path = r'C:\Users\miroh\Desktop\linkki.txt'
+        path = input("type complete path to text file you want encode: ")
         file_encoder(path)
     elif choice == 4:
-        path = r'C:\Users\miroh\Desktop\linkki.txt'
+        path = input("type complete path to text file you want encode: ")
         file_decoder(path)
     elif choice == 0:
         print("Shutting down, good bye")
