@@ -8,7 +8,6 @@ class Weather:
         self.city = city
 
 
-
 class Forecast(Weather):
 
     def __init__(self, api, city):
@@ -39,8 +38,6 @@ class Forecast(Weather):
               f"Temperature: {data3['main']['temp']} degrees of celsius, feels like {data3['main']['feels_like']}\n"
               f"Description: {data3['weather'][0]['description']}\n"
               f"\n")
-
-
 
 
 class Nowcast(Weather):
@@ -75,5 +72,11 @@ while run:
     if query.upper() == "X":
         break
     else:
-        weather1 = Forecast(token, query)
+        user_choice = input("do you want to query Forecast or Nowcast? type F/N: ").upper()
+        if user_choice == "F":
+            weather1 = Forecast(token, query)
+        elif user_choice == "N":
+            weather1 = Nowcast(token, query)
+        else:
+            print("Type only F or N")
 
